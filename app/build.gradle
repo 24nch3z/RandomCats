@@ -31,12 +31,21 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
     implementation deps.rx.java
+    implementation deps.rx.android
 
     implementation deps.material
 
-    implementation deps.dagger.compiler
-    implementation deps.dagger.processor
+    kapt deps.dagger.compiler
+    kapt deps.dagger.processor
     implementation deps.dagger.dagger
-    implementation deps.dagger.daggerAndroid
-    implementation deps.dagger.daggerAndroidSupport
+    implementation deps.dagger.android
+    implementation deps.dagger.support
+
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.rxjava
+
+    implementation deps.picasso
+
+    implementation deps.photoView
 }
