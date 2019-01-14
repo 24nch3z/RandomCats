@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Callback
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.s4nchez.randomcats.App
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity(), MainView {
         lastUrl = url
         Picasso.get()
             .load(url)
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
             .into(photo_view, object : Callback {
 
                 override fun onSuccess() {
