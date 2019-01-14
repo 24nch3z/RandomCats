@@ -25,15 +25,11 @@ class MainActivity : AppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         (application as App).dagger.inject(this)
+
+        showProgress()
         presenter.bindView(this)
+        presenter.loadCat()
 
-        if (savedInstanceState?.containsKey(LAST_URL_SAVE) != null) {
-            showCat(savedInstanceState?.getString(LAST_URL_SAVE))
-        } else {
-            presenter.loadCat()
-        }
-
-        photo_view.setOnClickListener { presenter.loadCat() }
         update_view.setOnClickListener { presenter.loadCat() }
     }
 
@@ -55,32 +51,26 @@ class MainActivity : AppCompatActivity(), MainView {
         progress_view.visibility = View.GONE
     }
 
-    override fun showPhoto() {
-        photo_view.visibility = View.VISIBLE
-    }
-
-    override fun hidePhoto() {
-        photo_view.visibility = View.GONE
+    override fun showUpdateButton() {
+        update_view.visibility = View.VISIBLE
     }
 
     override fun hideUpdateButton() {
         update_view.visibility = View.GONE
     }
 
-    override fun showUpdateButton() {
-        update_view.visibility = View.VISIBLE
-    }
-
     override fun showCat(url: String) {
         lastUrl = url
+
         Picasso.get()
             .load(url)
             .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .noPlaceholder()
             .into(photo_view, object : Callback {
 
                 override fun onSuccess() {
                     hideProgress()
-                    showPhoto()
+                    presenter.loadCatWithTimer()
                 }
 
                 override fun onError(e: Exception?) {
