@@ -3,13 +3,13 @@ package ru.s4nchez.randomcats.presentation.view.main
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.s4nchez.randomcats.App
 import ru.s4nchez.randomcats.R
 import ru.s4nchez.randomcats.presentation.presenter.main.MainPresenter
-import java.lang.Exception
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView {
@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(), MainView {
         }
 
         photo_view.setOnClickListener { presenter.loadCat() }
+        update_view.setOnClickListener { presenter.loadCat() }
     }
 
     override fun onDestroy() {
@@ -61,6 +62,14 @@ class MainActivity : AppCompatActivity(), MainView {
         photo_view.visibility = View.GONE
     }
 
+    override fun hideUpdateButton() {
+        update_view.visibility = View.GONE
+    }
+
+    override fun showUpdateButton() {
+        update_view.visibility = View.VISIBLE
+    }
+
     override fun showCat(url: String) {
         lastUrl = url
         Picasso.get()
@@ -72,8 +81,14 @@ class MainActivity : AppCompatActivity(), MainView {
                 }
 
                 override fun onError(e: Exception?) {
-
+                    showCommonError()
+                    hideProgress()
+                    showUpdateButton()
                 }
             })
+    }
+
+    override fun showCommonError() {
+        Snackbar.make(findViewById<View>(android.R.id.content), R.string.common_error, Snackbar.LENGTH_SHORT).show()
     }
 }

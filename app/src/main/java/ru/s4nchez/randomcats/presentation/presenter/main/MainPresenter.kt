@@ -12,12 +12,18 @@ class MainPresenter(
     fun loadCat() {
         view?.hidePhoto()
         view?.showProgress()
+        view?.hideUpdateButton()
+
         val d = catsInteractor.getCat()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 view?.showPhoto()
                 view?.showCat(it.url)
-            }, {})
+            }, {
+                view?.hideProgress()
+                view?.showUpdateButton()
+                view?.showCommonError()
+            })
         disposable.add(d)
     }
 }

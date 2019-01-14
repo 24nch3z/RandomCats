@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Random Cats</string>
+    <string name="common_error">Что-то пошло не так</string>
+    <string name="update">Обновить</string>
 </resources>
