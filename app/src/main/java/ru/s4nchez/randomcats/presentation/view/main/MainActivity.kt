@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
                 override fun onSuccess() {
                     hideProgress()
+                    showPhoto()
                 }
 
                 override fun onError(e: Exception?) {

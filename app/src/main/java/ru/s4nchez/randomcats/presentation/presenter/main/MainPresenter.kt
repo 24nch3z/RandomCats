@@ -17,7 +17,6 @@ class MainPresenter(
         val d = catsInteractor.getCat()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                view?.showPhoto()
                 view?.showCat(it.url)
             }, {
                 view?.hideProgress()
