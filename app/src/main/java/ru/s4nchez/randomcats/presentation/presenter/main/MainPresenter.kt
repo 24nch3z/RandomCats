@@ -9,6 +9,11 @@ class MainPresenter(
     private val catsInteractor: CatsInteractor
 ) : BasePresenter<MainView>() {
 
+    override fun removeView() {
+        super.removeView()
+        catsInteractor.closeApp().subscribe()
+    }
+
     fun loadCat() {
         view?.hidePhoto()
         view?.showProgress()
