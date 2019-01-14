@@ -3,9 +3,9 @@
 
 Используемые библиотеки:
 
-PhotoView
-Picasso
-Retrofit
-Dagger
-RxJava
-Material
+* PhotoView
+* Picasso
+* Retrofit
+* Dagger
+* RxJava
+* Material
